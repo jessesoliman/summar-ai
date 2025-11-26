@@ -1,0 +1,51 @@
+spring.application.name=summar-ai
+
+spring.datasource.url=${DATABASE_URL:jdbc:mysql://localhost:3307/summar-ai}
+spring.datasource.username=${DATABASE_USERNAME:root}
+spring.datasource.password=${DATABASE_PASSWORD:root}
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+
+# JPA (Hibernate) settings
+spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
+spring.jpa.hibernate.ddl-auto=update
+
+# OAuth2 details
+# Google
+spring.security.oauth2.client.registration.google.client-id=${GOOGLE_CLIENT_ID}
+spring.security.oauth2.client.registration.google.client-secret=${GOOGLE_CLIENT_SECRET}
+spring.security.oauth2.client.registration.google.scope=openid,profile,email,https://www.googleapis.com/auth/calendar.readonly
+spring.security.oauth2.client.registration.google.redirect-uri=${GOOGLE_REDIRECT_URI:http://localhost:8080/login/oauth2/code/google}
+spring.security.oauth2.client.registration.google.client-name=google
+spring.security.oauth2.client.provider.google.authorization-uri=https://accounts.google.com/o/oauth2/v2/auth
+spring.security.oauth2.client.provider.google.token-uri=https://oauth2.googleapis.com/token
+spring.security.oauth2.client.provider.google.user-info-uri=https://www.googleapis.com/oauth2/v3/userinfo
+#Zoom
+spring.security.oauth2.client.registration.zoom.client-id=${ZOOM_CLIENT_ID}
+spring.security.oauth2.client.registration.zoom.client-secret=${ZOOM_CLIENT_SECRET}
+spring.security.oauth2.client.registration.zoom.authorization-grant-type=authorization_code
+spring.security.oauth2.client.registration.zoom.redirect-uri=${ZOOM_REDIRECT_URI:http://localhost:8080/login/oauth2/code/zoom}
+spring.security.oauth2.client.provider.zoom.authorization-uri=https://zoom.us/oauth/authorize
+spring.security.oauth2.client.provider.zoom.token-uri=https://zoom.us/oauth/token
+spring.security.oauth2.client.provider.zoom.user-info-uri=https://api.zoom.us/v2/users/me
+spring.security.oauth2.client.provider.zoom.user-name-attribute=email
+zoom.api.base-url=https://api.zoom.us/v2
+#Jira
+spring.security.oauth2.client.registration.jira.client-id=${JIRA_CLIENT_ID}
+spring.security.oauth2.client.registration.jira.client-secret=${JIRA_CLIENT_SECRET}
+spring.security.oauth2.client.registration.jira.authorization-grant-type=authorization_code
+spring.security.oauth2.client.registration.jira.redirect-uri=${JIRA_REDIRECT_URI:http://localhost:8080/login/oauth2/code/jira}
+spring.security.oauth2.client.registration.jira.scope=read:me,read:jira-user,read:jira-work,offline_access
+spring.security.oauth2.client.provider.jira.authorization-uri=https://auth.atlassian.com/authorize
+spring.security.oauth2.client.provider.jira.token-uri=https://auth.atlassian.com/oauth/token
+spring.security.oauth2.client.provider.jira.user-info-uri=https://api.atlassian.com/me
+spring.security.oauth2.client.provider.jira.user-name-attribute=email
+
+#Open AI Chat GPT
+openai.api.key=${OPENAI_API_KEY}
+
+# Cookie Settings
+server.servlet.session.timeout=30m
+server.servlet.session.cookie.name=JSESSIONID
+server.servlet.session.cookie.http-only=true
+server.servlet.session.cookie.secure=${COOKIE_SECURE:false}

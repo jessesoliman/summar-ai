@@ -43,7 +43,7 @@ public class JiraApiHelper {
 
         // Step 4: Build full URL using encoded JQL
         String url = UriComponentsBuilder
-                .fromUriString("https://api.atlassian.com/ex/jira/" + cloudId + "/rest/api/3/search")
+                .fromUriString("https://api.atlassian.com/ex/jira/" + cloudId + "/rest/api/3/search/jql")
                 .queryParam("jql", encodedJql)
                 .build(false)  // Don't re-encode query params
                 .toUriString();

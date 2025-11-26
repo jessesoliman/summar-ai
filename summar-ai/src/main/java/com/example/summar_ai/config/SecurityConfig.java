@@ -69,8 +69,18 @@ public class SecurityConfig {
         DefaultOAuth2AuthorizationRequestResolver resolver = new DefaultOAuth2AuthorizationRequestResolver(clientRegistrationRepository, "/oauth2/authorization");
         resolver.setAuthorizationRequestCustomizer(customizer -> {
             Map<String, Object> additionalParameters = new HashMap<>(customizer.build().getAdditionalParameters());
-            // additionalParameters.put("prompt", "consent");
-            additionalParameters.put("access_type", "offline"); // Required to get refresh token
+
+            // Add parameters specific to Jira/Atlassian
+            if (customizer.build().getAuthorizationUri().contains("atlassian")) {
+                additionalParameters.put("audience", "api.atlassian.com");
+                additionalParameters.put("prompt", "consent");
+            }
+
+            // Add parameters for Google to get refresh tokens
+            if (customizer.build().getAuthorizationUri().contains("google")) {
+                additionalParameters.put("access_type", "offline");
+            }
+
             customizer.additionalParameters(additionalParameters);
         });
         return resolver;
